@@ -1,4 +1,4 @@
-const env = require('./env.js');  // Ajusta según tu configuración
+const env = require('./env.js');  
 const Sequelize = require('sequelize');
 
 // Crear una instancia de Sequelize
@@ -24,7 +24,18 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-// Importar modelos y agregarlos a db
-db.Estudiante = require('../models/estudiante.model.js')(sequelize, Sequelize);  // Asegúrate de usar 'Estudiante'
+// Importar modelos 
+db.Estudiante = require('../models/estudiante.model.js')(sequelize, Sequelize);  
+db.Cursos = require('../models/cursos.model.js')(sequelize, Sequelize);          
+db.ControlNotas = require('../models/controlnotas.model.js')(sequelize, Sequelize);  
+
+// Sincronizar los modelos en el orden correcto
+db.sequelize.sync({ force: false })  
+  .then(() => {
+    console.log('Modelos sincronizados correctamente.');
+  })
+  .catch((error) => {
+    console.error('Error al sincronizar los modelos:', error);
+  });
 
 module.exports = db;
