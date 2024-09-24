@@ -1,10 +1,10 @@
-const db = require('../config/db.config.js');  // Importar la configuración de la base de datos
-const Estudiante = db.Estudiante;              // Referencia al modelo Estudiante
+const db = require('../config/db.config.js');
+const Estudiante = db.Estudiante;
 
 // Crear un nuevo estudiante
 exports.create = (req, res) => {
   // Validar la solicitud
-  if (!req.body.nombre || !req.body.apellido) {
+  if (!req.body.nombre_completo || !req.body.tutor || !req.body.carnet) {
     return res.status(400).send({
       message: 'El contenido no puede estar vacío!'
     });
@@ -12,10 +12,11 @@ exports.create = (req, res) => {
 
   // Crear un estudiante
   const estudiante = {
-    nombre: req.body.nombre,
-    apellido: req.body.apellido,
-    email: req.body.email,
-    fecha_nacimiento: req.body.fecha_nacimiento
+    nombre_completo: req.body.nombre_completo,
+    tutor: req.body.tutor,
+    fecha_nacimiento: req.body.fecha_nacimiento,
+    ultimo_ano_aprobado: req.body.ultimo_ano_aprobado,
+    carnet: req.body.carnet
   };
 
   // Guardar el estudiante en la base de datos
